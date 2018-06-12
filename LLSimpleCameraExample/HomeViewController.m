@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UIButton *snapButton;
 @property (strong, nonatomic) UIButton *switchButton;
 @property (strong, nonatomic) UIButton *flashButton;
+@property (strong, nonatomic) UIButton *cameraRollButton;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
 @end
 
@@ -207,10 +208,14 @@
             
             // start recording
             NSURL *outputURL = [[[self applicationDocumentsDirectory]
-                                 URLByAppendingPathComponent:@"test1"] URLByAppendingPathExtension:@"mov"];
+                                 URLByAppendingPathComponent:@"fxpal"] URLByAppendingPathExtension:@"mov"];
             [self.camera startRecordingWithOutputUrl:outputURL didRecord:^(LLSimpleCamera *camera, NSURL *outputFileUrl, NSError *error) {
-                VideoViewController *vc = [[VideoViewController alloc] initWithVideoUrl:outputFileUrl];
-                [self.navigationController pushViewController:vc animated:YES];
+//                VideoViewController *vc = [[VideoViewController alloc] initWithVideoUrl:outputFileUrl];
+//                [self.navigationController pushViewController:vc animated:YES];
+//                BOOL result = UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(outputURL.absoluteString);
+                UISaveVideoAtPathToSavedPhotosAlbum(outputURL.path, nil, nil, nil);
+
+                [self showToast:@"Video saved to Camera Roll"];
             }];
             
         } else {
@@ -224,6 +229,27 @@
             [self.camera stopRecording];
         }
     }
+}
+
+-(void) showToast:(NSString *)message {
+    UILabel *toastLabel = [[UILabel alloc] init];
+    toastLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+    toastLabel.textColor = [UIColor whiteColor];
+    toastLabel.textAlignment = NSTextAlignmentCenter;
+    toastLabel.text = message;
+    toastLabel.alpha = 1.0;
+    toastLabel.layer.cornerRadius = 5;
+    toastLabel.clipsToBounds  =  true;
+    [self.view addSubview:toastLabel];
+    [toastLabel sizeToFit];
+    toastLabel.bounds = CGRectMake(toastLabel.bounds.origin.x - 10, toastLabel.bounds.origin.y - 10, toastLabel.bounds.size.width + 10, toastLabel.bounds.size.height + 10);
+    [toastLabel setCenter: CGPointMake(self.view.frame.size.width/2, 100)];
+
+    [UIView animateWithDuration: 4.0 delay: 0.1 options:UIViewAnimationOptionCurveEaseOut animations: ^{
+        toastLabel.alpha = 0.0;
+    } completion: ^(BOOL isCompleted) {
+        [toastLabel removeFromSuperview];
+    }];
 }
 
 /* other lifecycle methods */

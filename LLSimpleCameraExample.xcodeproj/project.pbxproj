@@ -258,7 +258,7 @@
 				TargetAttributes = {
 					17E4C47E1A0122A700E61ACD = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = NZPAC7Q696;
+						DevelopmentTeam = Q9MD4R778C;
 					};
 					17E4C4971A0122A700E61ACD = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -442,6 +442,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q9MD4R778C;
 				INFOPLIST_FILE = LLSimpleCameraExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -456,6 +457,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = Q9MD4R778C;
 				INFOPLIST_FILE = LLSimpleCameraExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

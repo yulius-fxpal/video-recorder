@@ -394,6 +394,26 @@ NSString *const LLSimpleCameraErrorDomain = @"LLSimpleCameraErrorDomain";
         }
     }
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
+    NSLocale *posix = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    [formatter setLocale:posix];
+    
+    NSDate *now = [NSDate date];
+    
+    AVMutableMetadataItem *creation_date = [[AVMutableMetadataItem alloc] init];
+    creation_date.keySpace = AVMetadataKeySpaceQuickTimeMetadata;
+    creation_date.key = AVMetadataQuickTimeUserDataKeyCreationDate;
+    creation_date.value = [formatter stringFromDate:now];
+    
+    AVMutableMetadataItem *unix_timestamp = [[AVMutableMetadataItem alloc] init];
+    unix_timestamp.keySpace = AVMetadataKeySpaceQuickTimeMetadata;
+    unix_timestamp.key = @"unix_timestamp";
+    unix_timestamp.value = [NSString stringWithFormat:@"%.6f", [now timeIntervalSince1970]];;
+    
+    self.movieFileOutput.metadata = @[ creation_date, unix_timestamp ];
+
+    
     self.didRecordCompletionBlock = completionBlock;
     
     [self.movieFileOutput startRecordingToOutputFileURL:url recordingDelegate:self];
